@@ -3,15 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portal Moustache</title>
+  <title>Beatportal Concept</title>
+  <!-- Supabase JS Client desde CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     :root {
       --bg-color: #ffffff;
       --text-main: #111111;
       --text-muted: #707070;
       --border-color: #e5e5e5;
-      --accent-green: #00ff66;
       --accent-black: #000000;
+      --error-color: #e53e3e;
       --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
@@ -25,7 +27,7 @@
       background-color: var(--bg-color);
       color: var(--text-main);
       font-family: var(--font-family);
-      padding-bottom: 80px; /* Espacio para la barra inferior */
+      padding-bottom: 80px;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -259,14 +261,23 @@
       cursor: pointer;
       margin-top: 8px;
     }
+
+    .error-msg {
+      color: var(--error-color);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-top: 12px;
+      display: none;
+    }
   </style>
 </head>
 <body>
 
   <!-- Header -->
   <header>
-    <div class="logo">Moustache de Chat LAB<span>AL</span></div>
-    <button class="auth-btn" id="openAuth">Iniciar Sesión</button>
+    <div class="logo">BEATPORT<span>AL</span></div>
+    <button class="auth-btn" id="authBtn">Iniciar Sesión</button>
   </header>
 
   <!-- Contenido principal -->
@@ -293,7 +304,7 @@
     </div>
   </main>
 
-  <!-- Barra inferior tipo App -->
+  <!-- Barra inferior -->
   <nav class="bottom-bar">
     <button class="nav-item active">
       <span>Explorar</span>
@@ -323,46 +334,100 @@
           <label for="password">Contraseña</label>
           <input type="password" id="password" required placeholder="••••••••">
         </div>
-        <button type="submit" class="submit-btn">Entrar</button>
+        <button type="submit" class="submit-btn" id="submitBtn">Entrar</button>
+        <div class="error-msg" id="errorMsg"></div>
       </form>
     </div>
   </div>
 
   <script>
+    // 1. CONFIGURACIÓN DE SUPABASE
+    // Reemplaza estas dos constantes con los datos de tu Dashboard de Supabase:
+    const SUPABASE_URL = 'https://TU-PROYECTO.supabase.co';
+    const SUPABASE_ANON_KEY = 'TU-CLAVE-ANON-PUBLICA';
+
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // Elementos DOM
     const authModal = document.getElementById('authModal');
-    const openAuthBtn = document.getElementById('openAuth');
+    const authBtn = document.getElementById('authBtn');
     const closeAuthBtn = document.getElementById('closeAuth');
     const bottomProfileBtn = document.getElementById('bottomProfileBtn');
     const loginForm = document.getElementById('loginForm');
     const userStatus = document.getElementById('userStatus');
+    const errorMsg = document.getElementById('errorMsg');
+    const submitBtn = document.getElementById('submitBtn');
 
-    const toggleModal = () => authModal.classList.toggle('open');
+    let currentUser = null;
 
-    openAuthBtn.addEventListener('click', toggleModal);
+    // Abrir/Cerrar Modal
+    const toggleModal = () => {
+      errorMsg.style.display = 'none';
+      authModal.classList.toggle('open');
+    };
+
     closeAuthBtn.addEventListener('click', toggleModal);
-    bottomProfileBtn.addEventListener('click', toggleModal);
-
-    // Clic fuera del cuadro para cerrar
+    bottomProfileBtn.addEventListener('click', () => {
+      if (!currentUser) toggleModal();
+    });
     authModal.addEventListener('click', (e) => {
       if (e.target === authModal) toggleModal();
     });
 
-    // Simulación de Login
-    loginForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const email = document.getElementById('email').value;
-      
-      userStatus.textContent = `Sesión iniciada como: ${email}`;
-      openAuthBtn.textContent = 'Salir';
-      toggleModal();
+    // 2. CONTROL DEL BOTÓN PRINCIPAL (LOGIN / LOGOUT)
+    authBtn.addEventListener('click', async () => {
+      if (currentUser) {
+        // Cerrar Sesión en Supabase
+        await supabase.auth.signOut();
+        updateUI(null);
+      } else {
+        toggleModal();
+      }
+    });
 
-      // Cambiar comportamiento del botón superior a Logout
-      openAuthBtn.onclick = () => {
+    // 3. INICIO DE SESIÓN CON SUPABASE
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorMsg.style.display = 'none';
+      submitBtn.textContent = 'CARGANDO...';
+      submitBtn.disabled = true;
+
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
+
+      submitBtn.textContent = 'ENTRAR';
+      submitBtn.disabled = false;
+
+      if (error) {
+        errorMsg.textContent = error.message;
+        errorMsg.style.display = 'block';
+      } else {
+        toggleModal();
+        loginForm.reset();
+      }
+    });
+
+    // 4. MANTENER Y ACTUALIZAR ESTADO DE LA SESIÓN
+    const updateUI = (user) => {
+      currentUser = user;
+      if (user) {
+        userStatus.textContent = `Sesión iniciada como: ${user.email}`;
+        authBtn.textContent = 'Cerrar Sesión';
+      } else {
         userStatus.textContent = 'Inicia sesión para acceder a tus tracks y colecciones.';
-        openAuthBtn.textContent = 'Iniciar Sesión';
-        openAuthBtn.onclick = null;
-        openAuthBtn.addEventListener('click', toggleModal);
-      };
+        authBtn.textContent = 'Iniciar Sesión';
+      }
+    };
+
+    // Escuchar cambios de autenticación en tiempo real (al cargar la página o refrescar)
+    supabase.auth.onAuthStateChange((event, session) => {
+      const user = session?.user || null;
+      updateUI(user);
     });
   </script>
 </body>
