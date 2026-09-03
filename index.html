@@ -352,24 +352,12 @@
   </div>
 
   <script>
-    // Configuración de Supabase
-    const SUPABASE_URL = 'https://cwpjjzamawyywfcsnaqo.supabase.co';
-    // Sustituye con tu anon_key real de Supabase (debe empezar con eyJ...)
-    const SUPABASE_ANON_KEY = 'sb_publishable_NynLf9J-n78PPW7Oaw2W1Q_0_kJjwtl';
-
-    let supabase = null;
-    try {
-      if (window.supabase) {
-        supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-      }
-    } catch (err) {
-      console.warn("Supabase inicializado con advertencia:", err);
-    }
-
+    // Variables globales de estado
     let isRegisterMode = false;
     let currentUser = null;
+    let supabase = null;
 
-    // Elementos DOM
+    // Referencias al DOM
     const authModal = document.getElementById('authModal');
     const authBtn = document.getElementById('authBtn');
     const closeAuthBtn = document.getElementById('closeAuth');
@@ -383,7 +371,7 @@
     const usernameGroup = document.getElementById('usernameGroup');
     const usernameInput = document.getElementById('username');
 
-    // Manejo de Modal
+    // 1. REGISTRO DE EVENTOS DOM (Se ejecutan ANTES de cualquier llamada remota)
     const openModal = () => {
       msgBox.style.display = 'none';
       authModal.classList.add('open');
@@ -393,18 +381,28 @@
       authModal.classList.remove('open');
     };
 
-    closeAuthBtn.addEventListener('click', closeModal);
-    
-    bottomProfileBtn.addEventListener('click', (e) => {
-      e.preventDefault();
+    // Funciones asociadas a los clics e interacciones de pantalla táctil
+    const handleOpenClick = (e) => {
+      if (e) e.preventDefault();
       if (!currentUser) openModal();
+    };
+
+    authBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (currentUser && supabase) {
+        supabase.auth.signOut().then(() => updateUI(null));
+      } else {
+        openModal();
+      }
     });
+
+    bottomProfileBtn.addEventListener('click', handleOpenClick);
+    closeAuthBtn.addEventListener('click', closeModal);
 
     authModal.addEventListener('click', (e) => {
       if (e.target === authModal) closeModal();
     });
 
-    // Modos
     tabLogin.addEventListener('click', (e) => {
       e.preventDefault();
       isRegisterMode = false;
@@ -427,23 +425,12 @@
       msgBox.style.display = 'none';
     });
 
-    authBtn.addEventListener('click', async (e) => {
-      e.preventDefault();
-      if (currentUser && supabase) {
-        await supabase.auth.signOut();
-        updateUI(null);
-      } else {
-        openModal();
-      }
-    });
-
-    // Envío del Formulario
     authForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       msgBox.style.display = 'none';
 
       if (!supabase) {
-        showMsg("Error de conexión con Supabase. Verifica las credenciales.", "error");
+        showMsg("Atención: Clave o cliente Supabase no disponible.", "error");
         return;
       }
 
@@ -456,13 +443,10 @@
       try {
         if (isRegisterMode) {
           submitBtn.textContent = 'REGISTRANDO...';
-
           const { data, error } = await supabase.auth.signUp({
             email: email,
             password: password,
-            options: {
-              data: { username: username }
-            }
+            options: { data: { username: username } }
           });
 
           if (error) {
@@ -486,7 +470,7 @@
           }
         }
       } catch (err) {
-        showMsg("Ocurrió un error inesperado al procesar la solicitud.", "error");
+        showMsg("Error de autenticación.", "error");
       }
 
       submitBtn.disabled = false;
@@ -499,26 +483,10 @@
       msgBox.style.display = 'block';
     }
 
-    const fetchProfile = async (user) => {
-      if (!user || !supabase) return null;
-
-      try {
-        const { data } = await supabase
-          .from('profiles')
-          .select('username')
-          .eq('id', user.id)
-          .single();
-
-        if (data?.username) return data.username;
-      } catch (e) {}
-
-      return user.user_metadata?.username || user.email;
-    };
-
-    const updateUI = async (user) => {
+    const updateUI = (user) => {
       currentUser = user;
       if (user) {
-        const displayName = await fetchProfile(user);
+        const displayName = user.user_metadata?.username || user.email;
         userStatus.textContent = `Sesión activa: @${displayName}`;
         authBtn.textContent = 'Cerrar Sesión';
       } else {
@@ -527,11 +495,22 @@
       }
     };
 
-    if (supabase) {
-      supabase.auth.onAuthStateChange((event, session) => {
-        updateUI(session?.user || null);
-      });
-    }
+    // 2. INICIALIZACIÓN ASÍNCRONA DE SUPABASE
+    window.addEventListener('DOMContentLoaded', () => {
+      const SUPABASE_URL = 'https://cwpjjzamawyywfcsnaqo.supabase.co';
+      const SUPABASE_ANON_KEY = 'sb_publishable_NynLf9J-n78PPW7Oaw2W1Q_0_kJjwtl';
+
+      try {
+        if (window.supabase && typeof window.supabase.createClient === 'function') {
+          supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+          supabase.auth.onAuthStateChange((event, session) => {
+            updateUI(session?.user || null);
+          });
+        }
+      } catch (err) {
+        console.warn("No se pudo iniciar Supabase:", err);
+      }
+    });
   </script>
 
 </body>
