@@ -9,7 +9,6 @@
   <style>
     :root {
       --bg-color: #ffffff;
-      --bg-secondary: #f8f9fa;
       --text-main: #111111;
       --text-muted: #707070;
       --border-color: #e5e5e5;
@@ -29,34 +28,28 @@
       background-color: var(--bg-color);
       color: var(--text-main);
       font-family: var(--font-family);
+      padding-bottom: 80px;
       -webkit-font-smoothing: antialiased;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
     }
     
-    /* Header Navbar */
+    /* Header */
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 12px 20px;
+      padding: 16px 24px;
       border-bottom: 1px solid var(--border-color);
       position: sticky;
       top: 0;
       background: var(--bg-color);
       z-index: 10;
-      min-height: 60px;
-      flex-wrap: wrap;
-      gap: 12px;
     }
     
     .logo {
-      font-size: 1.2rem;
+      font-size: 1.4rem;
       font-weight: 900;
       letter-spacing: -0.5px;
       text-transform: uppercase;
-      white-space: nowrap;
     }
     
     .logo span {
@@ -66,159 +59,115 @@
       margin-left: 2px;
     }
     
-    .top-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
+    button {
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
 
-    .auth-btn, .action-btn {
+    .auth-btn {
       background: var(--accent-black);
       color: #fff;
       border: none;
-      padding: 10px 16px;
-      font-size: 0.8rem;
+      padding: 10px 18px;
+      font-size: 0.85rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      cursor: pointer;
       border-radius: 2px;
-      white-space: nowrap;
-    }
-
-    .action-btn.secondary {
-      background: transparent;
-      color: var(--text-main);
-      border: 1px solid var(--border-color);
     }
     
-    /* Dashboard Responsive Layout */
-    .dashboard-container {
-      display: flex;
-      flex: 1;
-      flex-direction: row;
+    /* Main Layout */
+    main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 32px 24px;
     }
-
-    /* Sidebar Lateral */
-    aside.sidebar {
-      width: 220px;
-      background: var(--bg-secondary);
-      border-right: 1px solid var(--border-color);
-      padding: 20px 0;
-      display: flex;
-      flex-direction: column;
-      flex-shrink: 0;
-    }
-
-    .nav-list {
-      list-style: none;
-    }
-
-    .nav-item-link {
-      display: flex;
-      align-items: center;
-      padding: 12px 20px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      text-decoration: none;
-      cursor: pointer;
-      border-left: 3px solid transparent;
-      transition: all 0.2s ease;
-    }
-
-    .nav-item-link:hover, .nav-item-link.active {
-      color: var(--text-main);
-      background: #ffffff;
-      border-left-color: var(--accent-black);
-    }
-
-    /* Área Principal */
-    main.content-area {
-      flex: 1;
-      padding: 24px;
-      background: var(--bg-color);
-      width: 100%;
-    }
-
-    .library-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 24px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid var(--border-color);
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .library-title {
-      font-size: 1.6rem;
+    
+    .hero-title {
+      font-size: 2.2rem;
       font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: -0.5px;
+      letter-spacing: -1px;
+      margin-bottom: 8px;
     }
-
-    .search-bar {
-      width: 100%;
-      max-width: 220px;
-      padding: 8px 12px;
-      border: 1px solid var(--border-color);
-      font-size: 0.85rem;
-      outline: none;
-    }
-
-    /* Tabla de Archivos / Tracks */
-    .tracks-table-container {
-      width: 100%;
-      overflow-x: auto;
-    }
-
-    table.tracks-table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-    }
-
-    table.tracks-table th {
-      padding: 12px 16px;
-      font-size: 0.75rem;
-      font-weight: 800;
-      text-transform: uppercase;
+    
+    .subtitle {
       color: var(--text-muted);
-      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 32px;
+      font-size: 0.95rem;
     }
-
-    table.tracks-table td {
+    
+    /* Grid de Contenido */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 24px;
+    }
+    
+    .card {
+      border: 1px solid var(--border-color);
       padding: 16px;
-      font-size: 0.85rem;
-      border-bottom: 1px solid var(--border-color);
-      font-weight: 600;
+      background: #fff;
     }
-
-    /* Mensaje de Estado Vacío */
-    .empty-state {
+    
+    .card-img {
+      width: 100%;
+      aspect-ratio: 1/1;
+      background-color: #f0f0f0;
+      margin-bottom: 12px;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 40px 20px;
-      text-align: center;
-    }
-
-    .empty-state p {
       color: var(--text-muted);
-      font-size: 0.85rem;
-      font-weight: 600;
+      font-size: 0.8rem;
       text-transform: uppercase;
-      margin-bottom: 16px;
-      max-width: 300px;
-      line-height: 1.4;
+      font-weight: 700;
     }
-
-    /* Modal de Autenticación */
+    
+    .card-title {
+      font-size: 1rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    
+    .card-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+    
+    /* Barra Fija Inferior */
+    .bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background-color: var(--bg-color);
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 20;
+    }
+    
+    .nav-item {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .nav-item.active {
+      color: var(--text-main);
+    }
+    
+    /* Modal */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -230,7 +179,6 @@
       justify-content: center;
       align-items: center;
       z-index: 100;
-      padding: 16px;
     }
     
     .modal-overlay.open {
@@ -240,7 +188,7 @@
     .modal-box {
       width: 100%;
       max-width: 380px;
-      padding: 24px;
+      padding: 32px;
       border: 1px solid var(--border-color);
       background: #fff;
       box-shadow: 0 10px 30px rgba(0,0,0,0.08);
@@ -249,19 +197,19 @@
     
     .close-btn {
       position: absolute;
-      top: 12px;
+      top: 16px;
       right: 16px;
       background: none;
       border: none;
       font-size: 1.4rem;
-      cursor: pointer;
       font-weight: 700;
     }
     
+    /* Pestañas */
     .tabs {
       display: flex;
       gap: 16px;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
       border-bottom: 1px solid var(--border-color);
       padding-bottom: 8px;
     }
@@ -269,11 +217,10 @@
     .tab-btn {
       background: none;
       border: none;
-      font-size: 0.9rem;
+      font-size: 1rem;
       font-weight: 900;
       text-transform: uppercase;
       color: var(--text-muted);
-      cursor: pointer;
       padding-bottom: 4px;
     }
     
@@ -319,7 +266,6 @@
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 1px;
-      cursor: pointer;
       margin-top: 8px;
     }
     
@@ -334,49 +280,6 @@
     
     .msg-box.error { color: var(--error-color); }
     .msg-box.success { color: var(--success-color); }
-
-    /* REGLAS RESPONSIVAS PARA MÓVILES */
-    @media (max-width: 768px) {
-      .dashboard-container {
-        flex-direction: column;
-      }
-
-      aside.sidebar {
-        width: 100%;
-        border-right: none;
-        border-bottom: 1px solid var(--border-color);
-        padding: 0;
-      }
-
-      .nav-list {
-        display: flex;
-        overflow-x: auto;
-        white-space: nowrap;
-      }
-
-      .nav-item-link {
-        padding: 12px 16px;
-        border-left: none;
-        border-bottom: 3px solid transparent;
-      }
-
-      .nav-item-link:hover, .nav-item-link.active {
-        border-left-color: transparent;
-        border-bottom-color: var(--accent-black);
-      }
-
-      .search-bar {
-        max-width: 100%;
-      }
-
-      main.content-area {
-        padding: 16px;
-      }
-
-      .library-title {
-        font-size: 1.3rem;
-      }
-    }
   </style>
 </head>
 
@@ -384,64 +287,46 @@
 
   <header>
     <div class="logo">MOUSTACHE<span>App</span></div>
-    <div class="top-actions">
-      <input type="text" class="search-bar" placeholder="Buscar...">
-      <button class="auth-btn" id="authBtn">Iniciar Sesión</button>
-    </div>
+    <button class="auth-btn" id="authBtn" type="button">Iniciar Sesión</button>
   </header>
 
-  <div class="dashboard-container">
-    <aside class="sidebar">
-      <ul class="nav-list">
-        <li><a class="nav-item-link active">Biblioteca</a></li>
-        <li><a class="nav-item-link">Pistas</a></li>
-        <li><a class="nav-item-link">Álbumes</a></li>
-        <li><a class="nav-item-link">Procesamiento</a></li>
-      </ul>
-    </aside>
+  <main>
+    <h1 class="hero-title">Mi Perfil</h1>
+    <p class="subtitle" id="userStatus">Inicia sesión para acceder a tus tracks y colecciones.</p>
 
-    <main class="content-area">
-      <div class="library-header">
-        <h1 class="library-title" id="libraryTitle">Biblioteca de Másters</h1>
-        <button class="action-btn" id="uploadBtn">+ Nuevo Máster</button>
+    <div class="grid">
+      <div class="card">
+        <div class="card-img">Artwork 1:1</div>
+        <div class="card-title">Track Title</div>
+        <div class="card-meta">Artist • Genre</div>
       </div>
-
-      <div id="loggedOutView" class="empty-state">
-        <p>Inicia sesión para acceder a tu biblioteca y procesar tus masters musicales.</p>
-        <button class="action-btn" id="loginPromptBtn">Iniciar Sesión</button>
+      <div class="card">
+        <div class="card-img">Artwork 1:1</div>
+        <div class="card-title">Release Title</div>
+        <div class="card-meta">Label • 128 BPM</div>
       </div>
-
-      <div id="loggedInView" style="display: none;">
-        <div class="tracks-table-container">
-          <table class="tracks-table">
-            <thead>
-              <tr>
-                <th><input type="checkbox"></th>
-                <th>Nombre del Track</th>
-                <th>Fecha</th>
-                <th>Estado</th>
-              </tr>
-            </thead>
-            <tbody id="tracksList">
-            </tbody>
-          </table>
-        </div>
-
-        <div id="emptyLibraryMsg" class="empty-state" style="display: none;">
-          <p>Sube una pista para empezar a masterizar</p>
-          <button class="action-btn">+ Nuevo</button>
-        </div>
+      <div class="card">
+        <div class="card-img">Artwork 1:1</div>
+        <div class="card-title">Playlist</div>
+        <div class="card-meta">12 Tracks</div>
       </div>
-    </main>
-  </div>
+    </div>
+  </main>
+
+  <nav class="bottom-bar">
+    <button class="nav-item active" type="button">Explorar</button>
+    <button class="nav-item" type="button">Top 100</button>
+    <button class="nav-item" type="button">Lanzamientos</button>
+    <button class="nav-item" id="bottomProfileBtn" type="button">Perfil</button>
+  </nav>
 
   <div class="modal-overlay" id="authModal">
     <div class="modal-box">
-      <button class="close-btn" id="closeAuth">×</button>
+      <button class="close-btn" id="closeAuth" type="button">×</button>
 
       <div class="tabs">
-        <button class="tab-btn active" id="tabLogin">Acceso Email</button>
-        <button class="tab-btn" id="tabRegister">Crear Cuenta</button>
+        <button class="tab-btn active" id="tabLogin" type="button">Acceso Email</button>
+        <button class="tab-btn" id="tabRegister" type="button">Crear Cuenta</button>
       </div>
 
       <form id="authForm">
@@ -467,30 +352,38 @@
   </div>
 
   <script>
+    // Configuración de Supabase
     const SUPABASE_URL = 'https://cwpjjzamawyywfcsnaqo.supabase.co';
+    // Sustituye con tu anon_key real de Supabase (debe empezar con eyJ...)
     const SUPABASE_ANON_KEY = 'sb_publishable_NynLf9J-n78PPW7Oaw2W1Q_0_kJjwtl';
 
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    let supabase = null;
+    try {
+      if (window.supabase) {
+        supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      }
+    } catch (err) {
+      console.warn("Supabase inicializado con advertencia:", err);
+    }
 
     let isRegisterMode = false;
     let currentUser = null;
 
+    // Elementos DOM
     const authModal = document.getElementById('authModal');
     const authBtn = document.getElementById('authBtn');
     const closeAuthBtn = document.getElementById('closeAuth');
+    const bottomProfileBtn = document.getElementById('bottomProfileBtn');
     const authForm = document.getElementById('authForm');
+    const userStatus = document.getElementById('userStatus');
     const msgBox = document.getElementById('msgBox');
     const submitBtn = document.getElementById('submitBtn');
     const tabLogin = document.getElementById('tabLogin');
     const tabRegister = document.getElementById('tabRegister');
     const usernameGroup = document.getElementById('usernameGroup');
     const usernameInput = document.getElementById('username');
-    
-    const loggedOutView = document.getElementById('loggedOutView');
-    const loggedInView = document.getElementById('loggedInView');
-    const loginPromptBtn = document.getElementById('loginPromptBtn');
-    const emptyLibraryMsg = document.getElementById('emptyLibraryMsg');
 
+    // Manejo de Modal
     const openModal = () => {
       msgBox.style.display = 'none';
       authModal.classList.add('open');
@@ -501,12 +394,19 @@
     };
 
     closeAuthBtn.addEventListener('click', closeModal);
-    loginPromptBtn.addEventListener('click', openModal);
+    
+    bottomProfileBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (!currentUser) openModal();
+    });
+
     authModal.addEventListener('click', (e) => {
       if (e.target === authModal) closeModal();
     });
 
-    tabLogin.addEventListener('click', () => {
+    // Modos
+    tabLogin.addEventListener('click', (e) => {
+      e.preventDefault();
       isRegisterMode = false;
       tabLogin.classList.add('active');
       tabRegister.classList.remove('active');
@@ -516,7 +416,8 @@
       msgBox.style.display = 'none';
     });
 
-    tabRegister.addEventListener('click', () => {
+    tabRegister.addEventListener('click', (e) => {
+      e.preventDefault();
       isRegisterMode = true;
       tabRegister.classList.add('active');
       tabLogin.classList.remove('active');
@@ -526,8 +427,9 @@
       msgBox.style.display = 'none';
     });
 
-    authBtn.addEventListener('click', async () => {
-      if (currentUser) {
+    authBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      if (currentUser && supabase) {
         await supabase.auth.signOut();
         updateUI(null);
       } else {
@@ -535,9 +437,15 @@
       }
     });
 
+    // Envío del Formulario
     authForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       msgBox.style.display = 'none';
+
+      if (!supabase) {
+        showMsg("Error de conexión con Supabase. Verifica las credenciales.", "error");
+        return;
+      }
 
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
@@ -545,36 +453,40 @@
 
       submitBtn.disabled = true;
 
-      if (isRegisterMode) {
-        submitBtn.textContent = 'REGISTRANDO...';
+      try {
+        if (isRegisterMode) {
+          submitBtn.textContent = 'REGISTRANDO...';
 
-        const { data, error } = await supabase.auth.signUp({
-          email: email,
-          password: password,
-          options: {
-            data: { username: username }
+          const { data, error } = await supabase.auth.signUp({
+            email: email,
+            password: password,
+            options: {
+              data: { username: username }
+            }
+          });
+
+          if (error) {
+            showMsg(error.message, 'error');
+          } else {
+            showMsg('Cuenta creada correctamente.', 'success');
+            authForm.reset();
           }
-        });
-
-        if (error) {
-          showMsg(error.message, 'error');
         } else {
-          showMsg('Cuenta creada correctamente. Revisa tu correo.', 'success');
-          authForm.reset();
-        }
-      } else {
-        submitBtn.textContent = 'AUTENTICANDO...';
-        const { data, error } = await supabase.auth.signInWithPassword({
-          email,
-          password
-        });
+          submitBtn.textContent = 'AUTENTICANDO...';
+          const { data, error } = await supabase.auth.signInWithPassword({
+            email,
+            password
+          });
 
-        if (error) {
-          showMsg(error.message, 'error');
-        } else {
-          closeModal();
-          authForm.reset();
+          if (error) {
+            showMsg(error.message, 'error');
+          } else {
+            closeModal();
+            authForm.reset();
+          }
         }
+      } catch (err) {
+        showMsg("Ocurrió un error inesperado al procesar la solicitud.", "error");
       }
 
       submitBtn.disabled = false;
@@ -588,14 +500,18 @@
     }
 
     const fetchProfile = async (user) => {
-      if (!user) return null;
-      const { data } = await supabase
-        .from('profiles')
-        .select('username')
-        .eq('id', user.id)
-        .single();
+      if (!user || !supabase) return null;
 
-      if (data?.username) return data.username;
+      try {
+        const { data } = await supabase
+          .from('profiles')
+          .select('username')
+          .eq('id', user.id)
+          .single();
+
+        if (data?.username) return data.username;
+      } catch (e) {}
+
       return user.user_metadata?.username || user.email;
     };
 
@@ -603,20 +519,19 @@
       currentUser = user;
       if (user) {
         const displayName = await fetchProfile(user);
+        userStatus.textContent = `Sesión activa: @${displayName}`;
         authBtn.textContent = 'Cerrar Sesión';
-        loggedOutView.style.display = 'none';
-        loggedInView.style.display = 'block';
-        emptyLibraryMsg.style.display = 'flex';
       } else {
+        userStatus.textContent = 'Inicia sesión para acceder a tus tracks y colecciones.';
         authBtn.textContent = 'Iniciar Sesión';
-        loggedOutView.style.display = 'flex';
-        loggedInView.style.display = 'none';
       }
     };
 
-    supabase.auth.onAuthStateChange((event, session) => {
-      updateUI(session?.user || null);
-    });
+    if (supabase) {
+      supabase.auth.onAuthStateChange((event, session) => {
+        updateUI(session?.user || null);
+      });
+    }
   </script>
 
 </body>
