@@ -9,6 +9,7 @@
   <style>
     :root {
       --bg-color: #ffffff;
+      --bg-secondary: #f8f9fa;
       --text-main: #111111;
       --text-muted: #707070;
       --border-color: #e5e5e5;
@@ -28,25 +29,28 @@
       background-color: var(--bg-color);
       color: var(--text-main);
       font-family: var(--font-family);
-      padding-bottom: 80px;
       -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
     
-    /* Header */
+    /* Header Navbar */
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 24px;
+      padding: 12px 24px;
       border-bottom: 1px solid var(--border-color);
       position: sticky;
       top: 0;
       background: var(--bg-color);
       z-index: 10;
+      height: 60px;
     }
     
     .logo {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       font-weight: 900;
       letter-spacing: -0.5px;
       text-transform: uppercase;
@@ -59,110 +63,151 @@
       margin-left: 2px;
     }
     
-    .auth-btn {
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .auth-btn, .action-btn {
       background: var(--accent-black);
       color: #fff;
       border: none;
-      padding: 10px 18px;
-      font-size: 0.85rem;
+      padding: 8px 16px;
+      font-size: 0.8rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       cursor: pointer;
       border-radius: 2px;
     }
-    
-    /* Main Layout */
-    main {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 32px 24px;
+
+    .action-btn.secondary {
+      background: transparent;
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
     }
     
-    .hero-title {
-      font-size: 2.2rem;
+    /* Layout Estilo Dashboard (MasteringBox Style) */
+    .dashboard-container {
+      display: flex;
+      flex: 1;
+      min-height: calc(100vh - 60px);
+    }
+
+    /* Sidebar Lateral */
+    aside.sidebar {
+      width: 240px;
+      background: var(--bg-secondary);
+      border-right: 1px solid var(--border-color);
+      padding: 20px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .nav-list {
+      list-style: none;
+    }
+
+    .nav-item-link {
+      display: flex;
+      align-items: center;
+      padding: 12px 24px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      cursor: pointer;
+      border-left: 3px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    .nav-item-link:hover, .nav-item-link.active {
+      color: var(--text-main);
+      background: #ffffff;
+      border-left-color: var(--accent-black);
+    }
+
+    /* Vista Principal de Trabajo */
+    main.content-area {
+      flex: 1;
+      padding: 32px;
+      background: var(--bg-color);
+    }
+
+    .library-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .library-title {
+      font-size: 1.8rem;
       font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: -1px;
-      margin-bottom: 8px;
+      letter-spacing: -0.5px;
     }
-    
-    .subtitle {
-      color: var(--text-muted);
-      margin-bottom: 32px;
-      font-size: 0.95rem;
-    }
-    
-    /* Grid de Contenido */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 24px;
-    }
-    
-    .card {
-      border: 1px solid var(--border-color);
-      padding: 16px;
-      background: #fff;
-    }
-    
-    .card-img {
+
+    .search-bar {
       width: 100%;
-      aspect-ratio: 1/1;
-      background-color: #f0f0f0;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-muted);
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      font-weight: 700;
+      max-width: 300px;
+      padding: 8px 12px;
+      border: 1px solid var(--border-color);
+      font-size: 0.85rem;
+      outline: none;
     }
-    
-    .card-title {
-      font-size: 1rem;
+
+    /* Tabla de Archivos / Tracks */
+    .tracks-table-container {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table.tracks-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    table.tracks-table th {
+      padding: 12px 16px;
+      font-size: 0.75rem;
       font-weight: 800;
       text-transform: uppercase;
-      margin-bottom: 4px;
-    }
-    
-    .card-meta {
-      font-size: 0.8rem;
       color: var(--text-muted);
-      text-transform: uppercase;
+      border-bottom: 1px solid var(--border-color);
     }
-    
-    /* Barra Fija Inferior */
-    .bottom-bar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 64px;
-      background-color: var(--bg-color);
-      border-top: 1px solid var(--border-color);
+
+    table.tracks-table td {
+      padding: 16px;
+      font-size: 0.85rem;
+      border-bottom: 1px solid var(--border-color);
+      font-weight: 600;
+    }
+
+    /* Mensaje de Estado Vacío */
+    .empty-state {
       display: flex;
-      justify-content: space-around;
+      flex-direction: column;
       align-items: center;
-      z-index: 20;
+      justify-content: center;
+      padding: 80px 20px;
+      text-align: center;
     }
-    
-    .nav-item {
-      background: none;
-      border: none;
+
+    .empty-state p {
       color: var(--text-muted);
-      font-size: 0.75rem;
-      font-weight: 700;
+      font-size: 0.9rem;
+      font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      cursor: pointer;
+      margin-bottom: 16px;
     }
-    
-    .nav-item.active {
-      color: var(--text-main);
-    }
-    
+
     /* Modal */
     .modal-overlay {
       position: fixed;
@@ -286,38 +331,56 @@
 
   <header>
     <div class="logo">MOUSTACHE<span>App</span></div>
-    <button class="auth-btn" id="authBtn">Iniciar Sesión</button>
+    <div class="top-actions">
+      <input type="text" class="search-bar" placeholder="Buscar másters...">
+      <button class="auth-btn" id="authBtn">Iniciar Sesión</button>
+    </div>
   </header>
 
-  <main>
-    <h1 class="hero-title">Mi Perfil</h1>
-    <p class="subtitle" id="userStatus">Inicia sesión para acceder a tus tracks y colecciones.</p>
+  <div class="dashboard-container">
+    <aside class="sidebar">
+      <ul class="nav-list">
+        <li><a class="nav-item-link active">Biblioteca</a></li>
+        <li><a class="nav-item-link">Pistas</a></li>
+        <li><a class="nav-item-link">Álbumes</a></li>
+        <li><a class="nav-item-link">Procesamiento</a></li>
+      </ul>
+    </aside>
 
-    <div class="grid">
-      <div class="card">
-        <div class="card-img">Artwork 1:1</div>
-        <div class="card-title">Track Title</div>
-        <div class="card-meta">Artist • Genre</div>
+    <main class="content-area">
+      <div class="library-header">
+        <h1 class="library-title" id="libraryTitle">Biblioteca de Másters</h1>
+        <button class="action-btn" id="uploadBtn">+ Nuevo Máster</button>
       </div>
-      <div class="card">
-        <div class="card-img">Artwork 1:1</div>
-        <div class="card-title">Release Title</div>
-        <div class="card-meta">Label • 128 BPM</div>
-      </div>
-      <div class="card">
-        <div class="card-img">Artwork 1:1</div>
-        <div class="card-title">Playlist</div>
-        <div class="card-meta">12 Tracks</div>
-      </div>
-    </div>
-  </main>
 
-  <nav class="bottom-bar">
-    <button class="nav-item active">Explorar</button>
-    <button class="nav-item">Top 100</button>
-    <button class="nav-item">Lanzamientos</button>
-    <button class="nav-item" id="bottomProfileBtn">Perfil</button>
-  </nav>
+      <div id="loggedOutView" class="empty-state">
+        <p>Inicia sesión para acceder a tu biblioteca y procesar tus masters musicales.</p>
+        <button class="action-btn" id="loginPromptBtn">Iniciar Sesión</button>
+      </div>
+
+      <div id="loggedInView" style="display: none;">
+        <div class="tracks-table-container">
+          <table class="tracks-table">
+            <thead>
+              <tr>
+                <th><input type="checkbox"></th>
+                <th>Nombre del Track</th>
+                <th>Fecha de Creación</th>
+                <th>Formato / Estado</th>
+              </tr>
+            </thead>
+            <tbody id="tracksList">
+              </tbody>
+          </table>
+        </div>
+
+        <div id="emptyLibraryMsg" class="empty-state" style="display: none;">
+          <p>Sube una pista para empezar a masterizar</p>
+          <button class="action-btn">+ Nuevo</button>
+        </div>
+      </div>
+    </main>
+  </div>
 
   <div class="modal-overlay" id="authModal">
     <div class="modal-box">
@@ -351,7 +414,6 @@
   </div>
 
   <script>
-    // Configuración de Supabase
     const SUPABASE_URL = 'https://cwpjjzamawyywfcsnaqo.supabase.co';
     const SUPABASE_ANON_KEY = 'sb_publishable_NynLf9J-n78PPW7Oaw2W1Q_0_kJjwtl';
 
@@ -360,21 +422,25 @@
     let isRegisterMode = false;
     let currentUser = null;
 
-    // Elementos DOM
+    // DOM Elements
     const authModal = document.getElementById('authModal');
     const authBtn = document.getElementById('authBtn');
     const closeAuthBtn = document.getElementById('closeAuth');
-    const bottomProfileBtn = document.getElementById('bottomProfileBtn');
     const authForm = document.getElementById('authForm');
-    const userStatus = document.getElementById('userStatus');
     const msgBox = document.getElementById('msgBox');
     const submitBtn = document.getElementById('submitBtn');
     const tabLogin = document.getElementById('tabLogin');
     const tabRegister = document.getElementById('tabRegister');
     const usernameGroup = document.getElementById('usernameGroup');
     const usernameInput = document.getElementById('username');
+    
+    const loggedOutView = document.getElementById('loggedOutView');
+    const loggedInView = document.getElementById('loggedInView');
+    const loginPromptBtn = document.getElementById('loginPromptBtn');
+    const emptyLibraryMsg = document.getElementById('emptyLibraryMsg');
+    const tracksList = document.getElementById('tracksList');
 
-    // Manejo de Modal
+    // Control de Modal
     const openModal = () => {
       msgBox.style.display = 'none';
       authModal.classList.add('open');
@@ -385,14 +451,12 @@
     };
 
     closeAuthBtn.addEventListener('click', closeModal);
-    bottomProfileBtn.addEventListener('click', () => {
-      if (!currentUser) openModal();
-    });
+    loginPromptBtn.addEventListener('click', openModal);
     authModal.addEventListener('click', (e) => {
       if (e.target === authModal) closeModal();
     });
 
-    // Modos
+    // Modos de Autenticación
     tabLogin.addEventListener('click', () => {
       isRegisterMode = false;
       tabLogin.classList.add('active');
@@ -440,16 +504,14 @@
           email: email,
           password: password,
           options: {
-            data: {
-              username: username
-            }
+            data: { username: username }
           }
         });
 
         if (error) {
           showMsg(error.message, 'error');
         } else {
-          showMsg('Cuenta creada correctamente. Si la confirmación de email está activa, revisa tu bandeja de entrada.', 'success');
+          showMsg('Cuenta creada correctamente. Revisa tu correo.', 'success');
           authForm.reset();
         }
       } else {
@@ -477,35 +539,38 @@
       msgBox.style.display = 'block';
     }
 
-    // Consulta el perfil desde la tabla 'profiles' con fallback a los metadatos locales
+    // Consulta Perfil de Usuario
     const fetchProfile = async (user) => {
       if (!user) return null;
-
-      const { data, error } = await supabase
+      const { data } = await supabase
         .from('profiles')
         .select('username')
         .eq('id', user.id)
         .single();
 
-      if (data?.username) {
-        return data.username;
-      }
-
+      if (data?.username) return data.username;
       return user.user_metadata?.username || user.email;
     };
 
+    // Actualización de la Interfaz según la Sesión
     const updateUI = async (user) => {
       currentUser = user;
       if (user) {
         const displayName = await fetchProfile(user);
-        userStatus.textContent = `Sesión activa: @${displayName}`;
         authBtn.textContent = 'Cerrar Sesión';
+        loggedOutView.style.display = 'none';
+        loggedInView.style.display = 'block';
+
+        // Demostración de lista vacía inicial de la biblioteca
+        emptyLibraryMsg.style.display = 'flex';
       } else {
-        userStatus.textContent = 'Inicia sesión para acceder a tus tracks y colecciones.';
         authBtn.textContent = 'Iniciar Sesión';
+        loggedOutView.style.display = 'flex';
+        loggedInView.style.display = 'none';
       }
     };
 
+    // Observer del Estado de la Autenticación
     supabase.auth.onAuthStateChange((event, session) => {
       updateUI(session?.user || null);
     });
