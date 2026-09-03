@@ -77,11 +77,19 @@
       border-radius: 2px;
     }
     
-    /* Main Layout */
+    /* Main Layout & Views */
     main {
       max-width: 1000px;
       margin: 0 auto;
       padding: 32px 24px;
+    }
+
+    .view-section {
+      display: none;
+    }
+
+    .view-section.active {
+      display: block;
     }
     
     .hero-title {
@@ -110,6 +118,26 @@
       padding: 16px;
       background: #fff;
     }
+
+    .card-stat {
+      border: 1px solid var(--border-color);
+      padding: 20px;
+      background: #fff;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-size: 2rem;
+      font-weight: 900;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 700;
+    }
     
     .card-img {
       width: 100%;
@@ -136,6 +164,147 @@
       font-size: 0.8rem;
       color: var(--text-muted);
       text-transform: uppercase;
+    }
+
+    /* Player View */
+    .player-container {
+      border: 1px solid var(--border-color);
+      padding: 32px;
+      text-align: center;
+      background: #fff;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .player-artwork {
+      width: 100%;
+      max-width: 300px;
+      aspect-ratio: 1/1;
+      background: #f0f0f0;
+      margin: 0 auto 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      color: var(--text-muted);
+    }
+
+    .player-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .btn-control {
+      background: var(--accent-black);
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      font-weight: 800;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      background: #f0f0f0;
+      margin: 20px 0;
+      position: relative;
+    }
+
+    .progress-fill {
+      width: 35%;
+      height: 100%;
+      background: var(--text-main);
+    }
+
+    /* Estilo Biblioteca (Masteringbox Adaptation) */
+    .library-layout {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .library-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .library-sidebar {
+      border: 1px solid var(--border-color);
+      padding: 16px;
+      background: #fafafa;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+    }
+
+    .sidebar-item {
+      padding: 10px 12px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+
+    .sidebar-item.active {
+      background: #fff;
+      border: 1px solid var(--border-color);
+    }
+
+    .library-content {
+      border: 1px solid var(--border-color);
+      padding: 24px;
+      background: #fff;
+    }
+
+    .library-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      gap: 12px;
+    }
+
+    .btn-new {
+      background: var(--accent-black);
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .search-input {
+      width: 100%;
+      max-width: 300px;
+      padding: 8px 12px;
+      border: 1px solid var(--border-color);
+      font-size: 0.85rem;
+      outline: none;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-muted);
+    }
+
+    .empty-state p {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 16px;
     }
     
     /* Barra Fija Inferior */
@@ -291,33 +460,128 @@
   </header>
 
   <main>
-    <h1 class="hero-title">Mi Perfil</h1>
-    <p class="subtitle" id="userStatus">Inicia sesión para acceder a tus tracks y colecciones.</p>
+    <!-- VISTA INICIO (DASHBOARD ESTUDIO) -->
+    <section id="viewInicio" class="view-section active">
+      <h1 class="hero-title">Studio Dashboard</h1>
+      <p class="subtitle">Métricas, proyectos activos y estado del estudio.</p>
 
-    <div class="grid">
-      <div class="card">
-        <div class="card-img">Artwork 1:1</div>
-        <div class="card-title">Track Title</div>
-        <div class="card-meta">Artist • Genre</div>
+      <div class="grid" style="margin-bottom: 32px;">
+        <div class="card-stat">
+          <div class="stat-num">24</div>
+          <div class="stat-label">Tracks en Catálogo</div>
+        </div>
+        <div class="card-stat">
+          <div class="stat-num">08</div>
+          <div class="stat-label">Masterings Activos</div>
+        </div>
+        <div class="card-stat">
+          <div class="stat-num">03</div>
+          <div class="stat-label">Proyectos EP/Álbum</div>
+        </div>
       </div>
-      <div class="card">
-        <div class="card-img">Artwork 1:1</div>
-        <div class="card-title">Release Title</div>
-        <div class="card-meta">Label • 128 BPM</div>
+
+      <h2 style="font-size: 1.2rem; font-weight: 900; text-transform: uppercase; margin-bottom: 16px;">Recientes en Estudio</h2>
+      <div class="grid">
+        <div class="card">
+          <div class="card-img">Waveform 24bit</div>
+          <div class="card-title">Project Alpha</div>
+          <div class="card-meta">Mixing • 150 BPM</div>
+        </div>
+        <div class="card">
+          <div class="card-img">Mastering Chain</div>
+          <div class="card-title">Hybrid Track 02</div>
+          <div class="card-meta">Mastering • 48kHz</div>
+        </div>
+        <div class="card">
+          <div class="card-img">Artwork Draft</div>
+          <div class="card-title">La colline des chats</div>
+          <div class="card-meta">Final Cut • Hardstyle</div>
+        </div>
       </div>
-      <div class="card">
-        <div class="card-img">Artwork 1:1</div>
-        <div class="card-title">Playlist</div>
-        <div class="card-meta">12 Tracks</div>
+    </section>
+
+    <!-- VISTA PLAY (REPRODUCTOR) -->
+    <section id="viewPlay" class="view-section">
+      <h1 class="hero-title">Reproductor</h1>
+      <p class="subtitle">Audio monitor en vivo.</p>
+
+      <div class="player-container">
+        <div class="player-artwork">24-BIT / 44.1kHz</div>
+        <h2 style="font-size: 1.2rem; font-weight: 900; text-transform: uppercase;">Track Preview 01</h2>
+        <p style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; margin-top: 4px;">Moustache Lab Studio</p>
+        
+        <div class="progress-bar">
+          <div class="progress-fill"></div>
+        </div>
+
+        <div class="player-controls">
+          <button class="btn-control" type="button">Anterior</button>
+          <button class="btn-control" type="button">Play / Pause</button>
+          <button class="btn-control" type="button">Siguiente</button>
+        </div>
       </div>
-    </div>
+    </section>
+
+    <!-- VISTA BIBLIOTECA (INSPIRADO EN MASTERINGBOX) -->
+    <section id="viewBiblioteca" class="view-section">
+      <h1 class="hero-title">Biblioteca</h1>
+      <p class="subtitle">Gestión de pistas, masters y álbumes.</p>
+
+      <div class="library-layout">
+        <div class="library-sidebar">
+          <ul class="sidebar-menu">
+            <li class="sidebar-item active">Biblioteca</li>
+            <li class="sidebar-item">Pistas <span>+</span></li>
+            <li class="sidebar-item">Álbumes <span>+</span></li>
+            <li class="sidebar-item">Público</li>
+          </ul>
+        </div>
+
+        <div class="library-content">
+          <div class="library-header">
+            <input type="text" class="search-input" placeholder="Buscar pistas...">
+            <button class="btn-new" type="button">+ Nuevo</button>
+          </div>
+
+          <div class="empty-state">
+            <p>Sube una pista para empezar a masterizar</p>
+            <button class="btn-new" type="button">+ Nuevo</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VISTA PERFIL -->
+    <section id="viewPerfil" class="view-section">
+      <h1 class="hero-title">Mi Perfil</h1>
+      <p class="subtitle" id="userStatus">Inicia sesión para acceder a tus tracks y colecciones.</p>
+
+      <div class="grid">
+        <div class="card">
+          <div class="card-img">Artwork 1:1</div>
+          <div class="card-title">Track Title</div>
+          <div class="card-meta">Artist • Genre</div>
+        </div>
+        <div class="card">
+          <div class="card-img">Artwork 1:1</div>
+          <div class="card-title">Release Title</div>
+          <div class="card-meta">Label • 128 BPM</div>
+        </div>
+        <div class="card">
+          <div class="card-img">Artwork 1:1</div>
+          <div class="card-title">Playlist</div>
+          <div class="card-meta">12 Tracks</div>
+        </div>
+      </div>
+    </section>
   </main>
 
+  <!-- BARRA NAVEGACIÓN INFERIOR ACTUALIZADA -->
   <nav class="bottom-bar">
-    <button class="nav-item active" type="button">Explorar</button>
-    <button class="nav-item" type="button">Top 100</button>
-    <button class="nav-item" type="button">Lanzamientos</button>
-    <button class="nav-item" id="bottomProfileBtn" type="button">Perfil</button>
+    <button class="nav-item active" data-target="viewInicio" type="button">Inicio</button>
+    <button class="nav-item" data-target="viewPlay" type="button">Play</button>
+    <button class="nav-item" data-target="viewBiblioteca" type="button">Biblioteca</button>
+    <button class="nav-item" data-target="viewPerfil" id="bottomProfileBtn" type="button">Perfil</button>
   </nav>
 
   <div class="modal-overlay" id="authModal">
@@ -361,7 +625,6 @@
     const authModal = document.getElementById('authModal');
     const authBtn = document.getElementById('authBtn');
     const closeAuthBtn = document.getElementById('closeAuth');
-    const bottomProfileBtn = document.getElementById('bottomProfileBtn');
     const authForm = document.getElementById('authForm');
     const userStatus = document.getElementById('userStatus');
     const msgBox = document.getElementById('msgBox');
@@ -371,7 +634,37 @@
     const usernameGroup = document.getElementById('usernameGroup');
     const usernameInput = document.getElementById('username');
 
-    // 1. REGISTRO DE EVENTOS DOM (Se ejecutan ANTES de cualquier llamada remota)
+    // NAVEGACIÓN ENTRE VISTAS
+    const navItems = document.querySelectorAll('.nav-item');
+    const viewSections = document.querySelectorAll('.view-section');
+
+    navItems.forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetViewId = item.getAttribute('data-target');
+
+        // Si intenta ir a Perfil sin sesión, abre modal
+        if (targetViewId === 'viewPerfil' && !currentUser) {
+          openModal();
+          return;
+        }
+
+        // Cambiar pestaña activa
+        navItems.forEach(nav => nav.classList.remove('active'));
+        item.classList.add('active');
+
+        // Cambiar sección visible
+        viewSections.forEach(section => {
+          if (section.id === targetViewId) {
+            section.classList.add('active');
+          } else {
+            section.classList.remove('active');
+          }
+        });
+      });
+    });
+
+    // MANEJO DE MODAL
     const openModal = () => {
       msgBox.style.display = 'none';
       authModal.classList.add('open');
@@ -379,12 +672,6 @@
 
     const closeModal = () => {
       authModal.classList.remove('open');
-    };
-
-    // Funciones asociadas a los clics e interacciones de pantalla táctil
-    const handleOpenClick = (e) => {
-      if (e) e.preventDefault();
-      if (!currentUser) openModal();
     };
 
     authBtn.addEventListener('click', (e) => {
@@ -396,7 +683,6 @@
       }
     });
 
-    bottomProfileBtn.addEventListener('click', handleOpenClick);
     closeAuthBtn.addEventListener('click', closeModal);
 
     authModal.addEventListener('click', (e) => {
@@ -495,7 +781,7 @@
       }
     };
 
-    // 2. INICIALIZACIÓN ASÍNCRONA DE SUPABASE
+    // INICIALIZACIÓN ASÍNCRONA DE SUPABASE
     window.addEventListener('DOMContentLoaded', () => {
       const SUPABASE_URL = 'https://cwpjjzamawyywfcsnaqo.supabase.co';
       const SUPABASE_ANON_KEY = 'sb_publishable_NynLf9J-n78PPW7Oaw2W1Q_0_kJjwtl';
