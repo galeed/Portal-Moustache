@@ -355,7 +355,7 @@
     // Variables globales de estado
     let isRegisterMode = false;
     let currentUser = null;
-    let supabase = null;
+    let sb = null;
 
     // Referencias al DOM
     const authModal = document.getElementById('authModal');
@@ -389,8 +389,8 @@
 
     authBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      if (currentUser && supabase) {
-        supabase.auth.signOut().then(() => updateUI(null));
+      if (currentUser && sb) {
+        sb.auth.signOut().then(() => updateUI(null));
       } else {
         openModal();
       }
@@ -429,7 +429,7 @@
       e.preventDefault();
       msgBox.style.display = 'none';
 
-      if (!supabase) {
+      if (!sb) {
         showMsg("Atención: Clave o cliente Supabase no disponible.", "error");
         return;
       }
@@ -443,7 +443,7 @@
       try {
         if (isRegisterMode) {
           submitBtn.textContent = 'REGISTRANDO...';
-          const { data, error } = await supabase.auth.signUp({
+          const { data, error } = await sb.auth.signUp({
             email: email,
             password: password,
             options: { data: { username: username } }
@@ -457,7 +457,7 @@
           }
         } else {
           submitBtn.textContent = 'AUTENTICANDO...';
-          const { data, error } = await supabase.auth.signInWithPassword({
+          const { data, error } = await sb.auth.signInWithPassword({
             email,
             password
           });
@@ -502,8 +502,8 @@
 
       try {
         if (window.supabase && typeof window.supabase.createClient === 'function') {
-          supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-          supabase.auth.onAuthStateChange((event, session) => {
+          sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+          sb.auth.onAuthStateChange((event, session) => {
             updateUI(session?.user || null);
           });
         }
