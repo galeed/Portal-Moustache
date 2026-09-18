@@ -4,18 +4,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Moustache de Chat App</title>
+  <title>Moustache de Chat App - Beatport Style</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     :root {
-      --bg-color: #ffffff;
-      --text-main: #111111;
-      --text-muted: #707070;
-      --border-color: #e5e5e5;
-      --accent-black: #000000;
-      --error-color: #e53e3e;
-      --success-color: #38a169;
-      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --bg-color: #0b0b0b;
+      --surface-bg: #121212;
+      --surface-card: #181818;
+      --surface-hover: #222222;
+      --text-main: #ffffff;
+      --text-muted: #a0a0a0;
+      --border-color: #262626;
+      --accent-green: #01ff95; /* Color característico Beatport */
+      --accent-green-hover: #00d67d;
+      --error-color: #ff4d4d;
+      --success-color: #01ff95;
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     }
     
     * {
@@ -28,60 +32,73 @@
       background-color: var(--bg-color);
       color: var(--text-main);
       font-family: var(--font-family);
-      padding-bottom: 80px;
+      padding-bottom: 90px;
       -webkit-font-smoothing: antialiased;
     }
     
-    /* Header */
+    /* Header estilo Beatportal */
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 24px;
+      padding: 18px 28px;
       border-bottom: 1px solid var(--border-color);
       position: sticky;
       top: 0;
-      background: var(--bg-color);
-      z-index: 10;
+      background: rgba(11, 11, 11, 0.92);
+      backdrop-filter: blur(12px);
+      z-index: 100;
     }
     
     .logo {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       font-weight: 900;
-      letter-spacing: -0.5px;
+      letter-spacing: 0.5px;
       text-transform: uppercase;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
     
     .logo span {
-      background: var(--accent-black);
-      color: #fff;
-      padding: 2px 6px;
-      margin-left: 2px;
+      background: var(--accent-green);
+      color: #000;
+      padding: 2px 8px;
+      font-weight: 900;
+      border-radius: 2px;
     }
     
     button {
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
       touch-action: manipulation;
+      font-family: inherit;
+      transition: all 0.2s ease;
     }
 
     .auth-btn {
-      background: var(--accent-black);
-      color: #fff;
+      background: var(--accent-green);
+      color: #000;
       border: none;
-      padding: 10px 18px;
-      font-size: 0.85rem;
-      font-weight: 700;
+      padding: 10px 20px;
+      font-size: 0.8rem;
+      font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.8px;
       border-radius: 2px;
+    }
+
+    .auth-btn:hover {
+      background: var(--accent-green-hover);
+      box-shadow: 0 0 15px rgba(1, 255, 149, 0.3);
     }
     
     /* Main Layout & Views */
     main {
-      max-width: 1000px;
+      max-width: 1100px;
       margin: 0 auto;
-      padding: 32px 24px;
+      padding: 36px 24px;
     }
 
     .view-section {
@@ -93,43 +110,55 @@
     }
     
     .hero-title {
-      font-size: 2.2rem;
+      font-size: 2.4rem;
       font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: -1px;
-      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+      color: #fff;
     }
     
     .subtitle {
       color: var(--text-muted);
       margin-bottom: 32px;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
+      font-weight: 500;
     }
     
     /* Grid de Contenido */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
     }
     
     .card {
       border: 1px solid var(--border-color);
       padding: 16px;
-      background: #fff;
+      background: var(--surface-card);
+      border-radius: 4px;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .card:hover {
+      border-color: var(--accent-green);
+      transform: translateY(-2px);
     }
 
     .card-stat {
       border: 1px solid var(--border-color);
-      padding: 20px;
-      background: #fff;
+      padding: 24px 20px;
+      background: var(--surface-card);
       text-align: center;
+      border-radius: 4px;
     }
 
     .stat-num {
-      font-size: 2rem;
+      font-size: 2.2rem;
       font-weight: 900;
+      color: var(--accent-green);
       margin-bottom: 4px;
+      letter-spacing: -1px;
     }
 
     .stat-label {
@@ -137,94 +166,115 @@
       color: var(--text-muted);
       text-transform: uppercase;
       font-weight: 700;
+      letter-spacing: 0.8px;
     }
     
     .card-img {
       width: 100%;
       aspect-ratio: 1/1;
-      background-color: #f0f0f0;
-      margin-bottom: 12px;
+      background-color: #222222;
+      border: 1px solid var(--border-color);
+      margin-bottom: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--text-muted);
       font-size: 0.8rem;
       text-transform: uppercase;
-      font-weight: 700;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      border-radius: 2px;
     }
     
     .card-title {
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 800;
       text-transform: uppercase;
       margin-bottom: 4px;
+      color: #fff;
     }
     
     .card-meta {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--text-muted);
       text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.3px;
     }
 
     /* Player View */
     .player-container {
       border: 1px solid var(--border-color);
-      padding: 32px;
+      padding: 36px;
       text-align: center;
-      background: #fff;
-      max-width: 500px;
+      background: var(--surface-card);
+      max-width: 480px;
       margin: 0 auto;
+      border-radius: 4px;
     }
 
     .player-artwork {
       width: 100%;
-      max-width: 300px;
+      max-width: 280px;
       aspect-ratio: 1/1;
-      background: #f0f0f0;
+      background: #222222;
+      border: 1px solid var(--border-color);
       margin: 0 auto 24px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 900;
-      color: var(--text-muted);
+      color: var(--accent-green);
+      letter-spacing: 1px;
+      border-radius: 2px;
     }
 
     .player-controls {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 16px;
+      gap: 12px;
       margin-top: 24px;
     }
 
     .btn-control {
-      background: var(--accent-black);
+      background: #000;
       color: #fff;
-      border: none;
-      padding: 12px 24px;
+      border: 1px solid var(--border-color);
+      padding: 12px 20px;
       font-weight: 800;
       text-transform: uppercase;
-      font-size: 0.85rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.8px;
+      border-radius: 2px;
+    }
+
+    .btn-control:hover {
+      border-color: var(--accent-green);
+      color: var(--accent-green);
     }
 
     .progress-bar {
       width: 100%;
       height: 6px;
-      background: #f0f0f0;
-      margin: 20px 0;
+      background: #262626;
+      margin: 24px 0;
       position: relative;
+      border-radius: 3px;
+      overflow: hidden;
     }
 
     .progress-fill {
-      width: 35%;
+      width: 45%;
       height: 100%;
-      background: var(--text-main);
+      background: var(--accent-green);
+      box-shadow: 0 0 10px rgba(1, 255, 149, 0.5);
     }
 
-    /* Estilo Biblioteca (Masteringbox Adaptation) */
+    /* Biblioteca Layout */
     .library-layout {
       display: grid;
-      grid-template-columns: 200px 1fr;
+      grid-template-columns: 220px 1fr;
       gap: 24px;
     }
 
@@ -237,7 +287,8 @@
     .library-sidebar {
       border: 1px solid var(--border-color);
       padding: 16px;
-      background: #fafafa;
+      background: var(--surface-bg);
+      border-radius: 4px;
     }
 
     .sidebar-menu {
@@ -245,53 +296,77 @@
     }
 
     .sidebar-item {
-      padding: 10px 12px;
-      font-size: 0.85rem;
+      padding: 12px 14px;
+      font-size: 0.82rem;
       font-weight: 800;
       text-transform: uppercase;
+      letter-spacing: 0.5px;
       cursor: pointer;
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 4px;
+      color: var(--text-muted);
+      border-radius: 2px;
+      transition: all 0.2s ease;
+    }
+
+    .sidebar-item:hover {
+      color: #fff;
+      background: var(--surface-hover);
     }
 
     .sidebar-item.active {
-      background: #fff;
-      border: 1px solid var(--border-color);
+      background: var(--surface-card);
+      color: var(--accent-green);
+      border-left: 3px solid var(--accent-green);
     }
 
     .library-content {
       border: 1px solid var(--border-color);
       padding: 24px;
-      background: #fff;
+      background: var(--surface-card);
+      border-radius: 4px;
     }
 
     .library-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
       gap: 12px;
     }
 
     .btn-new {
-      background: var(--accent-black);
-      color: #fff;
+      background: var(--accent-green);
+      color: #000;
       border: none;
-      padding: 8px 16px;
-      font-size: 0.8rem;
+      padding: 10px 18px;
+      font-size: 0.78rem;
       font-weight: 800;
       text-transform: uppercase;
+      letter-spacing: 0.8px;
+      border-radius: 2px;
+    }
+
+    .btn-new:hover {
+      background: var(--accent-green-hover);
     }
 
     .search-input {
       width: 100%;
       max-width: 300px;
-      padding: 8px 12px;
+      padding: 10px 14px;
+      background: var(--surface-bg);
       border: 1px solid var(--border-color);
+      color: #fff;
       font-size: 0.85rem;
       outline: none;
+      border-radius: 2px;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-green);
     }
 
     .empty-state {
@@ -304,7 +379,8 @@
       font-size: 0.85rem;
       font-weight: 700;
       text-transform: uppercase;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
     }
     
     /* Barra Fija Inferior */
@@ -314,7 +390,8 @@
       left: 0;
       right: 0;
       height: 64px;
-      background-color: var(--bg-color);
+      background-color: rgba(11, 11, 11, 0.95);
+      backdrop-filter: blur(10px);
       border-top: 1px solid var(--border-color);
       display: flex;
       justify-content: space-around;
@@ -326,28 +403,35 @@
       background: none;
       border: none;
       color: var(--text-muted);
-      font-size: 0.75rem;
-      font-weight: 700;
+      font-size: 0.78rem;
+      font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.8px;
+      padding: 8px 12px;
     }
     
     .nav-item.active {
-      color: var(--text-main);
+      color: var(--accent-green);
+      border-bottom: 2px solid var(--accent-green);
+    }
+
+    .nav-item:hover {
+      color: #fff;
     }
     
-    /* Modal */
+    /* Modal de Autenticación */
     .modal-overlay {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(255, 255, 255, 0.96);
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(6px);
       display: none; 
       justify-content: center;
       align-items: center;
-      z-index: 100;
+      z-index: 200;
     }
     
     .modal-overlay.open {
@@ -356,12 +440,13 @@
     
     .modal-box {
       width: 100%;
-      max-width: 380px;
+      max-width: 400px;
       padding: 32px;
       border: 1px solid var(--border-color);
-      background: #fff;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      background: var(--surface-card);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
       position: relative;
+      border-radius: 4px;
     }
     
     .close-btn {
@@ -370,44 +455,52 @@
       right: 16px;
       background: none;
       border: none;
-      font-size: 1.4rem;
+      color: var(--text-muted);
+      font-size: 1.5rem;
       font-weight: 700;
     }
+
+    .close-btn:hover {
+      color: #fff;
+    }
     
-    /* Pestañas */
+    /* Tabs del Modal */
     .tabs {
       display: flex;
       gap: 16px;
       margin-bottom: 24px;
       border-bottom: 1px solid var(--border-color);
-      padding-bottom: 8px;
+      padding-bottom: 10px;
     }
     
     .tab-btn {
       background: none;
       border: none;
-      font-size: 1rem;
+      font-size: 0.9rem;
       font-weight: 900;
       text-transform: uppercase;
+      letter-spacing: 0.5px;
       color: var(--text-muted);
       padding-bottom: 4px;
     }
     
     .tab-btn.active {
-      color: var(--text-main);
-      border-bottom: 2px solid var(--text-main);
+      color: var(--accent-green);
+      border-bottom: 2px solid var(--accent-green);
     }
     
     .form-group {
-      margin-bottom: 16px;
+      margin-bottom: 18px;
     }
     
     .form-group label {
       display: block;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 800;
       text-transform: uppercase;
-      margin-bottom: 6px;
+      letter-spacing: 0.8px;
+      margin-bottom: 8px;
+      color: var(--text-muted);
     }
     
     .form-group input {
@@ -417,32 +510,39 @@
       font-family: inherit;
       font-size: 0.9rem;
       outline: none;
-      background-color: #fff;
-      color: var(--text-main);
+      background-color: var(--surface-bg);
+      color: #fff;
+      border-radius: 2px;
     }
     
     .form-group input:focus {
-      border-color: var(--text-main);
+      border-color: var(--accent-green);
     }
     
     .submit-btn {
       width: 100%;
-      background: var(--text-main);
-      color: #fff;
+      background: var(--accent-green);
+      color: #000;
       border: none;
       padding: 14px;
       font-size: 0.85rem;
-      font-weight: 800;
+      font-weight: 900;
       text-transform: uppercase;
       letter-spacing: 1px;
       margin-top: 8px;
+      border-radius: 2px;
+    }
+
+    .submit-btn:hover {
+      background: var(--accent-green-hover);
     }
     
     .msg-box {
       font-size: 0.75rem;
-      font-weight: 700;
+      font-weight: 800;
       text-transform: uppercase;
-      margin-top: 12px;
+      letter-spacing: 0.5px;
+      margin-top: 14px;
       display: none;
       word-break: break-word;
     }
@@ -455,7 +555,7 @@
 <body>
 
   <header>
-    <div class="logo">MOUSTACHE<span>App</span></div>
+    <div class="logo">MOUSTACHE<span>Beat</span></div>
     <button class="auth-btn" id="authBtn" type="button">Iniciar Sesión</button>
   </header>
 
@@ -463,9 +563,9 @@
     <!-- VISTA INICIO (DASHBOARD ESTUDIO) -->
     <section id="viewInicio" class="view-section active">
       <h1 class="hero-title">Studio Dashboard</h1>
-      <p class="subtitle">Métricas, proyectos activos y estado del estudio.</p>
+      <p class="subtitle">Métricas, proyectos activos y catálogo del estudio.</p>
 
-      <div class="grid" style="margin-bottom: 32px;">
+      <div class="grid" style="margin-bottom: 36px;">
         <div class="card-stat">
           <div class="stat-num">24</div>
           <div class="stat-label">Tracks en Catálogo</div>
@@ -476,11 +576,11 @@
         </div>
         <div class="card-stat">
           <div class="stat-num">03</div>
-          <div class="stat-label">Proyectos EP/Álbum</div>
+          <div class="stat-label">Proyectos EP / Álbum</div>
         </div>
       </div>
 
-      <h2 style="font-size: 1.2rem; font-weight: 900; text-transform: uppercase; margin-bottom: 16px;">Recientes en Estudio</h2>
+      <h2 style="font-size: 1.2rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 18px;">Lanzamientos Recientes</h2>
       <div class="grid">
         <div class="card">
           <div class="card-img">Waveform 24bit</div>
@@ -495,20 +595,20 @@
         <div class="card">
           <div class="card-img">Artwork Draft</div>
           <div class="card-title">La colline des chats</div>
-          <div class="card-meta">Final Cut • Hardstyle</div>
+          <div class="card-meta">Final Cut • Techno</div>
         </div>
       </div>
     </section>
 
     <!-- VISTA PLAY (REPRODUCTOR) -->
     <section id="viewPlay" class="view-section">
-      <h1 class="hero-title">Reproductor</h1>
-      <p class="subtitle">Audio monitor en vivo.</p>
+      <h1 class="hero-title">Audio Player</h1>
+      <p class="subtitle">Monitor de audio en alta fidelidad.</p>
 
       <div class="player-container">
         <div class="player-artwork">24-BIT / 44.1kHz</div>
-        <h2 style="font-size: 1.2rem; font-weight: 900; text-transform: uppercase;">Track Preview 01</h2>
-        <p style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; margin-top: 4px;">Moustache Lab Studio</p>
+        <h2 style="font-size: 1.2rem; font-weight: 900; text-transform: uppercase; color: #fff;">Track Preview 01</h2>
+        <p style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; margin-top: 6px; font-weight: 700;">Moustache Lab Studio</p>
         
         <div class="progress-bar">
           <div class="progress-fill"></div>
@@ -516,16 +616,16 @@
 
         <div class="player-controls">
           <button class="btn-control" type="button">Anterior</button>
-          <button class="btn-control" type="button">Play / Pause</button>
+          <button class="btn-control" type="button" style="border-color: var(--accent-green); color: var(--accent-green);">Play / Pause</button>
           <button class="btn-control" type="button">Siguiente</button>
         </div>
       </div>
     </section>
 
-    <!-- VISTA BIBLIOTECA (INSPIRADO EN MASTERINGBOX) -->
+    <!-- VISTA BIBLIOTECA -->
     <section id="viewBiblioteca" class="view-section">
       <h1 class="hero-title">Biblioteca</h1>
-      <p class="subtitle">Gestión de pistas, masters y álbumes.</p>
+      <p class="subtitle">Gestión de pistas, másteres y colecciones.</p>
 
       <div class="library-layout">
         <div class="library-sidebar">
@@ -545,7 +645,7 @@
 
           <div class="empty-state">
             <p>Sube una pista para empezar a masterizar</p>
-            <button class="btn-new" type="button">+ Nuevo</button>
+            <button class="btn-new" type="button">+ Nuevo Track</button>
           </div>
         </div>
       </div>
@@ -576,7 +676,7 @@
     </section>
   </main>
 
-  <!-- BARRA NAVEGACIÓN INFERIOR ACTUALIZADA -->
+  <!-- BARRA NAVEGACIÓN INFERIOR -->
   <nav class="bottom-bar">
     <button class="nav-item active" data-target="viewInicio" type="button">Inicio</button>
     <button class="nav-item" data-target="viewPlay" type="button">Play</button>
@@ -584,9 +684,10 @@
     <button class="nav-item" data-target="viewPerfil" id="bottomProfileBtn" type="button">Perfil</button>
   </nav>
 
+  <!-- MODAL AUTENTICACIÓN -->
   <div class="modal-overlay" id="authModal">
     <div class="modal-box">
-      <button class="close-btn" id="closeAuth" type="button">×</button>
+      <button class="close-btn" id="closeAuth" type="button">&times;</button>
 
       <div class="tabs">
         <button class="tab-btn active" id="tabLogin" type="button">Acceso Email</button>
@@ -601,12 +702,12 @@
 
         <div class="form-group">
           <label for="email">Correo Electrónico</label>
-          <input type="email" id="email" required="" placeholder="tu@email.com" autocomplete="email">
+          <input type="email" id="email" required placeholder="tu@email.com" autocomplete="email">
         </div>
 
         <div class="form-group" id="passwordGroup">
           <label for="password">Contraseña</label>
-          <input type="password" id="password" required="" placeholder="••••••••" autocomplete="current-password">
+          <input type="password" id="password" required placeholder="••••••••" autocomplete="current-password">
         </div>
 
         <button type="submit" class="submit-btn" id="submitBtn">Entrar</button>
