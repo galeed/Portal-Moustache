@@ -500,6 +500,80 @@
       border-radius: 2px;
     }
     
+    /* Variables para Modo Oscuro (Predeterminado Beatport) */
+:root {
+  --bg-color: #0b0b0b;
+  --surface-bg: #121212;
+  --surface-card: #181818;
+  --text-main: #ffffff;
+  --text-muted: #a0a0a0;
+  --border-color: #262626;
+  --accent-green: #01ff95;
+  --accent-green-hover: #00d67d;
+  --error-color: #ff4d4d;
+  --success-color: #01ff95;
+}
+
+/* Variables para Modo Claro (Daylight Stage) */
+body.light-mode {
+  --bg-color: #f4f4f6;
+  --surface-bg: #ffffff;
+  --surface-card: #eaebef;
+  --text-main: #0b0b0b;
+  --text-muted: #555555;
+  --border-color: #d1d5db;
+  --accent-green: #00bf6f;
+  --accent-green-hover: #009958;
+}
+
+/* Estilos del Crossfader DJ */
+.fader-container {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface-bg);
+  border: 1px solid var(--border-color);
+  padding: 4px 8px;
+  border-radius: 3px;
+}
+
+.fader-label {
+  font-size: 0.6rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+}
+
+.crossfader-track {
+  position: relative;
+  width: 44px;
+  height: 14px;
+  background: #000;
+  border: 1px solid var(--border-color);
+  border-radius: 2px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.crossfader-handle {
+  width: 18px;
+  height: 10px;
+  background: var(--accent-green);
+  border-radius: 1px;
+  position: absolute;
+  left: 2px;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 0 4px rgba(0,0,0,0.5);
+}
+
+/* Posición del fader en modo claro */
+body.light-mode .crossfader-handle {
+  transform: translateX(22px);
+}
+
+    
     .msg-box {
       font-size: 0.72rem;
       font-weight: 800;
@@ -516,10 +590,20 @@
 
 <body>
 
-  <header>
-    <div class="logo">MOUSTACHE<span>App</span></div>
-    <button class="auth-btn" id="authBtn" type="button">Entrar</button>
-  </header>
+<header>
+  <div class="logo">MOUSTACHE<span>App</span></div>
+  
+  <!-- Crossfader Interactivo DJ -->
+  <div class="fader-container">
+    <span class="fader-label">NIGHT</span>
+    <div class="crossfader-track" id="themeFader" title="Cambiar ambiente">
+      <div class="crossfader-handle"></div>
+    </div>
+    <span class="fader-label">DAY</span>
+  </div>
+
+  <button class="auth-btn" id="authBtn" type="button">Entrar</button>
+</header>
 
   <main>
     <!-- VISTA INICIO -->
@@ -843,6 +927,26 @@
         console.warn("No se pudo iniciar Supabase:", err);
       }
     });
+    
+    // Lógica de cambio de tema vía Crossfader DJ
+const themeFader = document.getElementById('themeFader');
+
+themeFader.addEventListener('click', () => {
+  document.body.classList.toggle('light-mode');
+  
+  // Guardar preferencia local
+  const isLight = document.body.classList.contains('light-mode');
+  localStorage.setItem('theme_preference', isLight ? 'light' : 'dark');
+});
+
+// Cargar preferencia guardada al iniciar
+window.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('theme_preference');
+  if (savedTheme === 'light') {
+    document.body.classList.add('light-mode');
+  }
+});
+
   </script>
 
 </body>
