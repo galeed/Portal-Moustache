@@ -11,11 +11,10 @@
       --bg-color: #0b0b0b;
       --surface-bg: #121212;
       --surface-card: #181818;
-      --surface-hover: #222222;
       --text-main: #ffffff;
       --text-muted: #a0a0a0;
       --border-color: #262626;
-      --accent-green: #01ff95; /* Color característico Beatport */
+      --accent-green: #01ff95;
       --accent-green-hover: #00d67d;
       --error-color: #ff4d4d;
       --success-color: #01ff95;
@@ -32,40 +31,41 @@
       background-color: var(--bg-color);
       color: var(--text-main);
       font-family: var(--font-family);
-      padding-bottom: 90px;
+      padding-bottom: 75px;
       -webkit-font-smoothing: antialiased;
     }
     
-    /* Header estilo Beatportal */
+    /* Header compacto para celular */
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 18px 28px;
+      padding: 12px 16px;
       border-bottom: 1px solid var(--border-color);
       position: sticky;
       top: 0;
-      background: rgba(11, 11, 11, 0.92);
-      backdrop-filter: blur(12px);
+      background: rgba(11, 11, 11, 0.95);
+      backdrop-filter: blur(10px);
       z-index: 100;
     }
     
     .logo {
-      font-size: 1.3rem;
+      font-size: 1.05rem;
       font-weight: 900;
       letter-spacing: 0.5px;
       text-transform: uppercase;
       color: var(--text-main);
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
     }
     
     .logo span {
       background: var(--accent-green);
       color: #000;
-      padding: 2px 8px;
+      padding: 2px 6px;
       font-weight: 900;
+      font-size: 0.8rem;
       border-radius: 2px;
     }
     
@@ -74,31 +74,26 @@
       -webkit-tap-highlight-color: transparent;
       touch-action: manipulation;
       font-family: inherit;
-      transition: all 0.2s ease;
     }
 
     .auth-btn {
       background: var(--accent-green);
       color: #000;
       border: none;
-      padding: 10px 20px;
-      font-size: 0.8rem;
+      padding: 8px 14px;
+      font-size: 0.72rem;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
+      letter-spacing: 0.5px;
       border-radius: 2px;
     }
-
-    .auth-btn:hover {
-      background: var(--accent-green-hover);
-      box-shadow: 0 0 15px rgba(1, 255, 149, 0.3);
-    }
     
-    /* Main Layout & Views */
+    /* Main Layout optimizado */
     main {
-      max-width: 1100px;
+      width: 100%;
+      max-width: 1000px;
       margin: 0 auto;
-      padding: 36px 24px;
+      padding: 18px 14px;
     }
 
     .view-section {
@@ -110,63 +105,64 @@
     }
     
     .hero-title {
-      font-size: 2.4rem;
+      font-size: 1.5rem;
       font-weight: 900;
       text-transform: uppercase;
       letter-spacing: -0.5px;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
       color: #fff;
     }
     
     .subtitle {
       color: var(--text-muted);
-      margin-bottom: 32px;
-      font-size: 0.9rem;
+      margin-bottom: 20px;
+      font-size: 0.8rem;
       font-weight: 500;
     }
     
-    /* Grid de Contenido */
+    /* Grid estática de 2 columnas en celulares */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    @media (min-width: 600px) {
+      .grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 18px;
+      }
     }
     
     .card {
       border: 1px solid var(--border-color);
-      padding: 16px;
+      padding: 10px;
       background: var(--surface-card);
       border-radius: 4px;
-      transition: border-color 0.2s ease, transform 0.2s ease;
-    }
-
-    .card:hover {
-      border-color: var(--accent-green);
-      transform: translateY(-2px);
     }
 
     .card-stat {
       border: 1px solid var(--border-color);
-      padding: 24px 20px;
+      padding: 16px 10px;
       background: var(--surface-card);
       text-align: center;
       border-radius: 4px;
     }
 
     .stat-num {
-      font-size: 2.2rem;
+      font-size: 1.8rem;
       font-weight: 900;
       color: var(--accent-green);
-      margin-bottom: 4px;
+      margin-bottom: 2px;
       letter-spacing: -1px;
     }
 
     .stat-label {
-      font-size: 0.75rem;
+      font-size: 0.65rem;
       color: var(--text-muted);
       text-transform: uppercase;
       font-weight: 700;
-      letter-spacing: 0.8px;
+      letter-spacing: 0.5px;
     }
     
     .card-img {
@@ -174,56 +170,61 @@
       aspect-ratio: 1/1;
       background-color: #222222;
       border: 1px solid var(--border-color);
-      margin-bottom: 14px;
+      margin-bottom: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--text-muted);
-      font-size: 0.8rem;
+      font-size: 0.7rem;
       text-transform: uppercase;
       font-weight: 800;
-      letter-spacing: 0.5px;
+      text-align: center;
+      padding: 4px;
       border-radius: 2px;
     }
     
     .card-title {
-      font-size: 0.95rem;
+      font-size: 0.82rem;
       font-weight: 800;
       text-transform: uppercase;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
       color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     
     .card-meta {
-      font-size: 0.78rem;
+      font-size: 0.68rem;
       color: var(--text-muted);
       text-transform: uppercase;
       font-weight: 600;
-      letter-spacing: 0.3px;
     }
 
-    /* Player View */
+    /* Player Adaptado a Móvil */
     .player-container {
       border: 1px solid var(--border-color);
-      padding: 36px;
+      padding: 20px 14px;
       text-align: center;
       background: var(--surface-card);
-      max-width: 480px;
+      width: 100%;
+      max-width: 400px;
       margin: 0 auto;
       border-radius: 4px;
     }
 
     .player-artwork {
       width: 100%;
-      max-width: 280px;
+      max-width: 220px;
       aspect-ratio: 1/1;
       background: #222222;
       border: 1px solid var(--border-color);
-      margin: 0 auto 24px;
+      margin: 0 auto 16px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 900;
+      font-size: 0.85rem;
       color: var(--accent-green);
       letter-spacing: 1px;
       border-radius: 2px;
@@ -233,32 +234,28 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 12px;
-      margin-top: 24px;
+      gap: 8px;
+      margin-top: 18px;
     }
 
     .btn-control {
       background: #000;
       color: #fff;
       border: 1px solid var(--border-color);
-      padding: 12px 20px;
+      padding: 10px 8px;
       font-weight: 800;
       text-transform: uppercase;
-      font-size: 0.78rem;
-      letter-spacing: 0.8px;
+      font-size: 0.68rem;
+      letter-spacing: 0.5px;
       border-radius: 2px;
-    }
-
-    .btn-control:hover {
-      border-color: var(--accent-green);
-      color: var(--accent-green);
+      flex: 1;
     }
 
     .progress-bar {
       width: 100%;
       height: 6px;
       background: #262626;
-      margin: 24px 0;
+      margin: 18px 0;
       position: relative;
       border-radius: 3px;
       overflow: hidden;
@@ -268,158 +265,135 @@
       width: 45%;
       height: 100%;
       background: var(--accent-green);
-      box-shadow: 0 0 10px rgba(1, 255, 149, 0.5);
     }
 
-    /* Biblioteca Layout */
+    /* Layout Biblioteca Móvil */
     .library-layout {
-      display: grid;
-      grid-template-columns: 220px 1fr;
-      gap: 24px;
-    }
-
-    @media (max-width: 768px) {
-      .library-layout {
-        grid-template-columns: 1fr;
-      }
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
     }
 
     .library-sidebar {
       border: 1px solid var(--border-color);
-      padding: 16px;
+      padding: 8px;
       background: var(--surface-bg);
       border-radius: 4px;
     }
 
     .sidebar-menu {
       list-style: none;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+      -webkit-overflow-scrolling: touch;
     }
 
     .sidebar-item {
-      padding: 12px 14px;
-      font-size: 0.82rem;
+      padding: 8px 12px;
+      font-size: 0.72rem;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 4px;
+      white-space: nowrap;
       color: var(--text-muted);
       border-radius: 2px;
-      transition: all 0.2s ease;
-    }
-
-    .sidebar-item:hover {
-      color: #fff;
-      background: var(--surface-hover);
+      background: var(--surface-card);
+      border: 1px solid var(--border-color);
     }
 
     .sidebar-item.active {
-      background: var(--surface-card);
       color: var(--accent-green);
-      border-left: 3px solid var(--accent-green);
+      border-color: var(--accent-green);
     }
 
     .library-content {
       border: 1px solid var(--border-color);
-      padding: 24px;
+      padding: 16px;
       background: var(--surface-card);
       border-radius: 4px;
     }
 
     .library-header {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 24px;
-      gap: 12px;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
     }
 
     .btn-new {
       background: var(--accent-green);
       color: #000;
       border: none;
-      padding: 10px 18px;
-      font-size: 0.78rem;
+      padding: 10px;
+      font-size: 0.75rem;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
+      letter-spacing: 0.5px;
       border-radius: 2px;
-    }
-
-    .btn-new:hover {
-      background: var(--accent-green-hover);
+      width: 100%;
     }
 
     .search-input {
       width: 100%;
-      max-width: 300px;
-      padding: 10px 14px;
+      padding: 10px 12px;
       background: var(--surface-bg);
       border: 1px solid var(--border-color);
       color: #fff;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       outline: none;
       border-radius: 2px;
     }
 
-    .search-input:focus {
-      border-color: var(--accent-green);
-    }
-
     .empty-state {
       text-align: center;
-      padding: 60px 20px;
+      padding: 30px 10px;
       color: var(--text-muted);
     }
 
     .empty-state p {
-      font-size: 0.85rem;
+      font-size: 0.78rem;
       font-weight: 700;
       text-transform: uppercase;
-      margin-bottom: 20px;
-      letter-spacing: 0.5px;
+      margin-bottom: 14px;
     }
     
-    /* Barra Fija Inferior */
+    /* Navegación Inferior Fija */
     .bottom-bar {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      height: 64px;
-      background-color: rgba(11, 11, 11, 0.95);
-      backdrop-filter: blur(10px);
+      height: 56px;
+      background-color: rgba(11, 11, 11, 0.98);
       border-top: 1px solid var(--border-color);
       display: flex;
       justify-content: space-around;
       align-items: center;
-      z-index: 20;
+      z-index: 100;
     }
     
     .nav-item {
       background: none;
       border: none;
       color: var(--text-muted);
-      font-size: 0.78rem;
+      font-size: 0.68rem;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
-      padding: 8px 12px;
+      letter-spacing: 0.5px;
+      padding: 8px 4px;
+      flex: 1;
+      text-align: center;
     }
     
     .nav-item.active {
       color: var(--accent-green);
       border-bottom: 2px solid var(--accent-green);
     }
-
-    .nav-item:hover {
-      color: #fff;
-    }
     
-    /* Modal de Autenticación */
+    /* Modal para Pantallas Pequeñas */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -431,6 +405,7 @@
       display: none; 
       justify-content: center;
       align-items: center;
+      padding: 16px;
       z-index: 200;
     }
     
@@ -440,46 +415,39 @@
     
     .modal-box {
       width: 100%;
-      max-width: 400px;
-      padding: 32px;
+      max-width: 360px;
+      padding: 24px 18px;
       border: 1px solid var(--border-color);
       background: var(--surface-card);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
       position: relative;
       border-radius: 4px;
     }
     
     .close-btn {
       position: absolute;
-      top: 16px;
-      right: 16px;
+      top: 12px;
+      right: 12px;
       background: none;
       border: none;
       color: var(--text-muted);
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       font-weight: 700;
     }
-
-    .close-btn:hover {
-      color: #fff;
-    }
     
-    /* Tabs del Modal */
     .tabs {
       display: flex;
-      gap: 16px;
-      margin-bottom: 24px;
+      gap: 12px;
+      margin-bottom: 18px;
       border-bottom: 1px solid var(--border-color);
-      padding-bottom: 10px;
+      padding-bottom: 8px;
     }
     
     .tab-btn {
       background: none;
       border: none;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
       color: var(--text-muted);
       padding-bottom: 4px;
     }
@@ -490,25 +458,24 @@
     }
     
     .form-group {
-      margin-bottom: 18px;
+      margin-bottom: 14px;
     }
     
     .form-group label {
       display: block;
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       color: var(--text-muted);
     }
     
     .form-group input {
       width: 100%;
-      padding: 12px;
+      padding: 10px;
       border: 1px solid var(--border-color);
       font-family: inherit;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       outline: none;
       background-color: var(--surface-bg);
       color: #fff;
@@ -524,25 +491,20 @@
       background: var(--accent-green);
       color: #000;
       border: none;
-      padding: 14px;
-      font-size: 0.85rem;
+      padding: 12px;
+      font-size: 0.78rem;
       font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-top: 8px;
+      letter-spacing: 0.8px;
+      margin-top: 6px;
       border-radius: 2px;
-    }
-
-    .submit-btn:hover {
-      background: var(--accent-green-hover);
     }
     
     .msg-box {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-top: 14px;
+      margin-top: 10px;
       display: none;
       word-break: break-word;
     }
@@ -555,60 +517,56 @@
 <body>
 
   <header>
-    <div class="logo">MOUSTACHE<span>Beat</span></div>
-    <button class="auth-btn" id="authBtn" type="button">Iniciar Sesión</button>
+    <div class="logo">MOUSTACHE<span>App</span></div>
+    <button class="auth-btn" id="authBtn" type="button">Entrar</button>
   </header>
 
   <main>
-    <!-- VISTA INICIO (DASHBOARD ESTUDIO) -->
+    <!-- VISTA INICIO -->
     <section id="viewInicio" class="view-section active">
       <h1 class="hero-title">Studio Dashboard</h1>
-      <p class="subtitle">Métricas, proyectos activos y catálogo del estudio.</p>
+      <p class="subtitle">Métricas y lanzamientos activos.</p>
 
-      <div class="grid" style="margin-bottom: 36px;">
+      <div class="grid" style="margin-bottom: 24px;">
         <div class="card-stat">
           <div class="stat-num">24</div>
-          <div class="stat-label">Tracks en Catálogo</div>
+          <div class="stat-label">Tracks</div>
         </div>
         <div class="card-stat">
           <div class="stat-num">08</div>
-          <div class="stat-label">Masterings Activos</div>
-        </div>
-        <div class="card-stat">
-          <div class="stat-num">03</div>
-          <div class="stat-label">Proyectos EP / Álbum</div>
+          <div class="stat-label">Masters</div>
         </div>
       </div>
 
-      <h2 style="font-size: 1.2rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 18px;">Lanzamientos Recientes</h2>
+      <h2 style="font-size: 1rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;">Recientes</h2>
       <div class="grid">
         <div class="card">
-          <div class="card-img">Waveform 24bit</div>
+          <div class="card-img">Waveform</div>
           <div class="card-title">Project Alpha</div>
           <div class="card-meta">Mixing • 150 BPM</div>
         </div>
         <div class="card">
-          <div class="card-img">Mastering Chain</div>
+          <div class="card-img">Mastering</div>
           <div class="card-title">Hybrid Track 02</div>
           <div class="card-meta">Mastering • 48kHz</div>
         </div>
         <div class="card">
-          <div class="card-img">Artwork Draft</div>
+          <div class="card-img">Artwork</div>
           <div class="card-title">La colline des chats</div>
           <div class="card-meta">Final Cut • Techno</div>
         </div>
       </div>
     </section>
 
-    <!-- VISTA PLAY (REPRODUCTOR) -->
+    <!-- VISTA PLAY -->
     <section id="viewPlay" class="view-section">
       <h1 class="hero-title">Audio Player</h1>
-      <p class="subtitle">Monitor de audio en alta fidelidad.</p>
+      <p class="subtitle">Monitor de audio en tiempo real.</p>
 
       <div class="player-container">
         <div class="player-artwork">24-BIT / 44.1kHz</div>
-        <h2 style="font-size: 1.2rem; font-weight: 900; text-transform: uppercase; color: #fff;">Track Preview 01</h2>
-        <p style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; margin-top: 6px; font-weight: 700;">Moustache Lab Studio</p>
+        <h2 style="font-size: 1rem; font-weight: 900; text-transform: uppercase; color: #fff;">Track Preview 01</h2>
+        <p style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-top: 4px; font-weight: 700;">Moustache Lab Studio</p>
         
         <div class="progress-bar">
           <div class="progress-fill"></div>
@@ -625,14 +583,14 @@
     <!-- VISTA BIBLIOTECA -->
     <section id="viewBiblioteca" class="view-section">
       <h1 class="hero-title">Biblioteca</h1>
-      <p class="subtitle">Gestión de pistas, másteres y colecciones.</p>
+      <p class="subtitle">Gestión de pistas y colecciones.</p>
 
       <div class="library-layout">
         <div class="library-sidebar">
           <ul class="sidebar-menu">
             <li class="sidebar-item active">Biblioteca</li>
-            <li class="sidebar-item">Pistas <span>+</span></li>
-            <li class="sidebar-item">Álbumes <span>+</span></li>
+            <li class="sidebar-item">Pistas +</li>
+            <li class="sidebar-item">Álbumes +</li>
             <li class="sidebar-item">Público</li>
           </ul>
         </div>
@@ -640,12 +598,12 @@
         <div class="library-content">
           <div class="library-header">
             <input type="text" class="search-input" placeholder="Buscar pistas...">
-            <button class="btn-new" type="button">+ Nuevo</button>
+            <button class="btn-new" type="button">+ Nuevo Track</button>
           </div>
 
           <div class="empty-state">
             <p>Sube una pista para empezar a masterizar</p>
-            <button class="btn-new" type="button">+ Nuevo Track</button>
+            <button class="btn-new" type="button">+ Subir Archivo</button>
           </div>
         </div>
       </div>
@@ -654,7 +612,7 @@
     <!-- VISTA PERFIL -->
     <section id="viewPerfil" class="view-section">
       <h1 class="hero-title">Mi Perfil</h1>
-      <p class="subtitle" id="userStatus">Inicia sesión para acceder a tus tracks y colecciones.</p>
+      <p class="subtitle" id="userStatus">Inicia sesión para acceder a tus tracks.</p>
 
       <div class="grid">
         <div class="card">
@@ -666,11 +624,6 @@
           <div class="card-img">Artwork 1:1</div>
           <div class="card-title">Release Title</div>
           <div class="card-meta">Label • 128 BPM</div>
-        </div>
-        <div class="card">
-          <div class="card-img">Artwork 1:1</div>
-          <div class="card-title">Playlist</div>
-          <div class="card-meta">12 Tracks</div>
         </div>
       </div>
     </section>
@@ -690,13 +643,13 @@
       <button class="close-btn" id="closeAuth" type="button">&times;</button>
 
       <div class="tabs">
-        <button class="tab-btn active" id="tabLogin" type="button">Acceso Email</button>
-        <button class="tab-btn" id="tabRegister" type="button">Crear Cuenta</button>
+        <button class="tab-btn active" id="tabLogin" type="button">Email</button>
+        <button class="tab-btn" id="tabRegister" type="button">Registro</button>
       </div>
 
       <form id="authForm">
         <div class="form-group" id="usernameGroup" style="display: none;">
-          <label for="username">Nombre de Usuario</label>
+          <label for="username">Usuario</label>
           <input type="text" id="username" placeholder="dj_producer" autocomplete="username">
         </div>
 
@@ -717,12 +670,10 @@
   </div>
 
   <script>
-    // Variables globales de estado
     let isRegisterMode = false;
     let currentUser = null;
     let sb = null;
 
-    // Referencias al DOM
     const authModal = document.getElementById('authModal');
     const authBtn = document.getElementById('authBtn');
     const closeAuthBtn = document.getElementById('closeAuth');
@@ -735,7 +686,6 @@
     const usernameGroup = document.getElementById('usernameGroup');
     const usernameInput = document.getElementById('username');
 
-    // NAVEGACIÓN ENTRE VISTAS
     const navItems = document.querySelectorAll('.nav-item');
     const viewSections = document.querySelectorAll('.view-section');
 
@@ -744,17 +694,14 @@
         e.preventDefault();
         const targetViewId = item.getAttribute('data-target');
 
-        // Si intenta ir a Perfil sin sesión, abre modal
         if (targetViewId === 'viewPerfil' && !currentUser) {
           openModal();
           return;
         }
 
-        // Cambiar pestaña activa
         navItems.forEach(nav => nav.classList.remove('active'));
         item.classList.add('active');
 
-        // Cambiar sección visible
         viewSections.forEach(section => {
           if (section.id === targetViewId) {
             section.classList.add('active');
@@ -765,7 +712,6 @@
       });
     });
 
-    // MANEJO DE MODAL
     const openModal = () => {
       msgBox.style.display = 'none';
       authModal.classList.add('open');
@@ -875,14 +821,13 @@
       if (user) {
         const displayName = user.user_metadata?.username || user.email;
         userStatus.textContent = `Sesión activa: @${displayName}`;
-        authBtn.textContent = 'Cerrar Sesión';
+        authBtn.textContent = 'Salir';
       } else {
         userStatus.textContent = 'Inicia sesión para acceder a tus tracks y colecciones.';
-        authBtn.textContent = 'Iniciar Sesión';
+        authBtn.textContent = 'Entrar';
       }
     };
 
-    // INICIALIZACIÓN ASÍNCRONA DE SUPABASE
     window.addEventListener('DOMContentLoaded', () => {
       const SUPABASE_URL = 'https://cwpjjzamawyywfcsnaqo.supabase.co';
       const SUPABASE_ANON_KEY = 'sb_publishable_NynLf9J-n78PPW7Oaw2W1Q_0_kJjwtl';
