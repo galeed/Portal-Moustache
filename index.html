@@ -585,6 +585,59 @@ body.light-mode .crossfader-handle {
     
     .msg-box.error { color: var(--error-color); }
     .msg-box.success { color: var(--success-color); }
+    
+    /* Correcciones integrales para Modo Día */
+body.light-mode {
+  --bg-color: #f4f4f6;
+  --surface-bg: #ffffff;
+  --surface-card: #ffffff;
+  --text-main: #111111; /* Texto principal oscuro */
+  --text-muted: #666666;
+  --border-color: #e0e0e5;
+  --accent-green: #00bf6f;
+  --accent-green-hover: #009958;
+}
+
+/* Header y Barra Inferior en Modo Día */
+body.light-mode header,
+body.light-mode .bottom-bar {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: var(--border-color);
+}
+
+body.light-mode .logo {
+  color: var(--text-main);
+}
+
+body.light-mode .nav-item {
+  color: var(--text-muted);
+}
+
+body.light-mode .nav-item.active {
+  color: var(--text-main);
+  border-bottom-color: var(--text-main);
+}
+
+/* Ajuste de portadas y reproductores (fondos claros) */
+body.light-mode .card-img,
+body.light-mode .player-artwork {
+  background-color: #eef0f3;
+  border-color: var(--border-color);
+  color: #555555;
+}
+
+body.light-mode .btn-control {
+  background: #ffffff;
+  color: #111111;
+  border-color: var(--border-color);
+}
+
+/* Track del Crossfader */
+body.light-mode .crossfader-track {
+  background: #e0e0e0;
+  border-color: #cccccc;
+}
+
   </style>
 </head>
 
